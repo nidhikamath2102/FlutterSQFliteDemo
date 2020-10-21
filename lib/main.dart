@@ -15,12 +15,15 @@ class _MyAppState extends State<MyApp> {
   String userName = "";
   String contact = "";
 
-  void addUser(){
-    setState((){
-      Future<void> user = DatabaseHelper.insertUser(User(userName: userName, contact: int.parse(contact)));
-      DatabaseHelper.getAllUsers().then((value) => print("user returned is " + value.toString()));
+  void addUser() {
+    setState(() {
+      Future<void> user = DatabaseHelper.insertUser(
+          User(userName: userName, contact: int.parse(contact)));
+      DatabaseHelper.getAllUsers()
+          .then((value) => print("user returned is " + value.toString()));
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -35,31 +38,33 @@ class _MyAppState extends State<MyApp> {
               children: [
                 new TextField(
                   decoration: InputDecoration(
-                    //border: InputBorder.none,
+                      //border: InputBorder.none,
                       hintText: "Enter User Name"),
                   autofocus: true,
                   keyboardType: TextInputType.text,
-                  onChanged: (text){
+                  onChanged: (text) {
                     userName = text;
-                    print("contact" +  userName.toString());
+                    print("contact" + userName.toString());
                   },
                 ),
                 new TextField(
-                    decoration: InputDecoration(
+                  decoration: InputDecoration(
                       //border: InputBorder.none,
-                        hintText: "Enter Contact Number"),
-                    keyboardType: TextInputType.number,
-                  onChanged: (text){
-                      contact = text;
-                      print("contact" +  contact.toString());
+                      hintText: "Enter Contact Number"),
+                  keyboardType: TextInputType.number,
+                  onChanged: (text) {
+                    contact = text;
+                    print("contact" + contact.toString());
                   },
                 ),
                 new SizedBox(
                   height: 40.0,
                 ),
                 new RaisedButton(
-                  child: new Text("Add",
-                    style: new TextStyle(fontSize: 20.0),),
+                  child: new Text(
+                    "Add",
+                    style: new TextStyle(fontSize: 20.0),
+                  ),
                   onPressed: addUser,
                 )
               ],
@@ -68,4 +73,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
