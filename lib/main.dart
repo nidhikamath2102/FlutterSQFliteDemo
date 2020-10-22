@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sqflite/ViewUsers.dart';
 import 'package:flutter_sqflite/database/DatabaseHelper.dart';
 import 'package:flutter_sqflite/model/User.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -17,20 +20,22 @@ class _MyAppState extends State<MyApp> {
 
   void addUser() {
     setState(() {
-      Future<void> user = DatabaseHelper.insertUser(
-          User(userName: userName, contact: int.parse(contact)));
-      DatabaseHelper.getAllUsers()
-          .then((value) => print("user returned is " + value.toString()));
+      DatabaseHelper.insertUser(User(userName: userName, contact: int.parse(contact)));
+      DatabaseHelper.getAllUsers().then((value) => print("user returned is " + value.toString()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: "SqFlite App",
-      home: new Scaffold(
+    return new Scaffold(
         appBar: new AppBar(
           title: new Text("SQFlite App"),
+          actions: [
+            new IconButton(icon: new Icon(Icons.note_sharp), onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                ViewUsers()));
+            },)
+          ],
         ),
         body: new Container(
             margin: EdgeInsets.all(15.0),
@@ -44,7 +49,7 @@ class _MyAppState extends State<MyApp> {
                   keyboardType: TextInputType.text,
                   onChanged: (text) {
                     userName = text;
-                    print("contact" + userName.toString());
+                    //print("contact" + userName.toString());
                   },
                 ),
                 new TextField(
@@ -54,7 +59,7 @@ class _MyAppState extends State<MyApp> {
                   keyboardType: TextInputType.number,
                   onChanged: (text) {
                     contact = text;
-                    print("contact" + contact.toString());
+                    //print("contact" + contact.toString());
                   },
                 ),
                 new SizedBox(
@@ -69,7 +74,6 @@ class _MyAppState extends State<MyApp> {
                 )
               ],
             )),
-      ),
-    );
+      );
   }
 }

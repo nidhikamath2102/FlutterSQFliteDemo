@@ -12,6 +12,12 @@ class User {
     return {'id': id, 'userName': userName, 'contact': contact};
   }
 
+  User.fromMap(Map<String, dynamic> user) {
+    this.id = user['id'];
+    this.userName = user['userName'];
+    this.contact = user['contact'];
+  }
+
   @override
   String toString() {
     return 'User{id: $id, name: $userName, age: $contact}';
